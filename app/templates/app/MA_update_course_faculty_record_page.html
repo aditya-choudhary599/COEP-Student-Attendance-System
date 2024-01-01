@@ -1,0 +1,28 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<a href="{% url 'all_course_faculty_records_view' %}" class="btn btn-primary mt-2">Back to Home</a>
+
+{% if messages %}
+<div class="alert alert-info mt-3">
+    <ul class="mb-0">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="my-4">
+    <h2>Update Course-Faculty Record</h2>
+
+    <form action="" method="POST" class="mb-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Update</button>
+    </form>
+</div>
+
+{% endblock content %}

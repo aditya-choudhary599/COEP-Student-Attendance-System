@@ -1,0 +1,187 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://www.coep.org.in/sites/default/files/slideshow%20images/coepfinal1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+        z-index: -1;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #343a40;
+        color: #ffffff;
+    }
+
+    .container-fluid {
+        padding: 0;
+        overflow: auto;
+    }
+
+    .left-side,
+    .right-side {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        height: 100vh;
+    }
+
+    .left-side {
+        width: 25%;
+        overflow: auto;
+    }
+
+    .right-side {
+        width: 70%;
+        overflow: auto;
+    }
+
+    .card {
+        background-color: #495057;
+        border: none;
+        color: #ffffff;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.8s, box-shadow 0.8s;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    th,
+    td {
+        color: #ffffff;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .university-section {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .university-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Additional Styles */
+    table {
+        width: 100%;
+    }
+
+    /* Add any additional styles to address specific elements causing overflow */
+</style>
+
+<a href="{% url 'password_change_view' %}" class="btn btn-secondary mt-2">Change Password</a>
+
+<div class="university-section">
+    <h1 class="university-title">COEP Technological University</h1>
+</div>
+
+<div class="container-fluid p-0">
+    <div class="row">
+
+        <!-- Left side with Personal Info Card -->
+        <div class="col-md-6 left-side">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Personal Info</h2>
+                    <ul>
+                        <li>
+                            <p><strong>Name:</strong> {{ personal_info.name }}</p>
+                        </li>
+                        <li>
+                            <p><strong>Email Id:</strong> {{ personal_info.email }}</p>
+                        </li>
+                        <li>
+                            <p><strong>Department:</strong> {{ personal_info.department }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side with Courses Table Card -->
+        <div class="col-md-6 right-side">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">All Your Courses</h2>
+                    <table class="table table-dark table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sr No.</th>
+                                <th scope="col">Name of Course</th>
+                                <th scope="col">Year of Course</th>
+                                <th scope="col">Branch</th>
+                                <th scope="col">Div</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+
+                        {% for record in faculty_courses %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ record.course.name }}</td>
+                            <td>{{ record.course.year }}</td>
+                            <td>{{ record.course.branch }}</td>
+                            <td>{{ record.div }}</td>
+                            <td>
+                                <a href="{% url 'add_attendance_record_view' record.pk %}"
+                                    class="btn btn-warning btn-sm d-inline">Add</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

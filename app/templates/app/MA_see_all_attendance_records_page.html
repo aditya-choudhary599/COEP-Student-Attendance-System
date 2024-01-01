@@ -1,0 +1,76 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<a href="{% url 'master_admin_home_page_view' %}" class="btn btn-primary mt-2">Back to Home</a>
+<a href="{% url 'sem_end_delete_all_attendance_records_view' %}" class="btn btn-danger mt-2">Sem End Delete All
+    Records</a>
+
+<h2 class="text-center my-4">All Attendance Records</h2>
+
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <form class="d-flex" role="search" action="" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search_area"
+                name="search_area">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<table class="table table-dark table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Sr No.</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Year</th>
+            <th scope="col">Semester</th>
+            <th scope="col">Division</th>
+            <th scope="col">Faculty Name</th>
+            <th scope="col">Faculty Department</th>
+            <th scope="col">Students Present</th>
+            <th scope="col">Students Absent</th>
+            <th scope="col">Date</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+        </tr>
+    </thead>
+
+    {% for record in all_records %}
+
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ record.course_faculty.course.name }}</td>
+        <td>{{ record.course_faculty.course.branch }}</td>
+        <td>{{ record.course_faculty.course.year }}</td>
+        <td>{{ record.course_faculty.course.sem }}</td>
+        <td>{{ record.course_faculty.div }}</td>
+        <td>{{ record.course_faculty.faculty.name }}</td>
+        <td>{{ record.course_faculty.faculty.department }}</td>
+        <td>
+            <ul>
+                {% for student in record.present_students.all %}
+                <li>{{ student.mis }}_{{ student.name }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+                {% for student in record.absent_students.all %}
+                <li>{{ student.mis }}_{{ student.name }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+        <td>{{ record.date }}</td>
+        <td>{{ record.start_time }}</td>
+        <td>{{ record.end_time }}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock content %}

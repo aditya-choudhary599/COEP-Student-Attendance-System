@@ -1,0 +1,110 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .white-label {
+    color: white;
+  }
+
+  .card-title {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .csv-instructions {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .card {
+    background-color: #495057;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .form-card {
+    background-color: #495057;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .form-card-body {
+    padding: 20px;
+  }
+</style>
+
+<a href="{% url 'master_admin_home_page_view' %}" class="btn btn-primary mt-2">Back to Home</a>
+
+{% if messages %}
+<div class="alert alert-info mt-3">
+  <ul class="mb-0">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="my-4">
+  <h2 class="card-title white-label">Add New Records</h2>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title white-label">Add One Record</h5>
+          <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form_1.as_p }}
+            <button type="submit" class="btn btn-success">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title white-label">Add Records via CSV File</h5>
+          <p class="csv-instructions white-label">To add records via CSV file, ensure your CSV file follows this format:
+          </p>
+          <div class="white-label">
+            <p>Column Names:</p>
+            <ul>
+              <li>'Name'</li>
+              <li>'Email Id '</li>
+              <li>'Department' - Choose from:
+                <ul>
+                  {% for department in form_1.department.field.choices %}
+                  <li>{{ department.1 }}</li>
+                  {% endfor %}
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form_2.as_p }}
+            <button type="submit" class="btn btn-success">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add the 'white-label' class to all labels in the forms
+    document.querySelectorAll('form label').forEach(label => {
+      label.classList.add('white-label');
+    });
+  </script>
+</div>
+
+{% endblock content %}

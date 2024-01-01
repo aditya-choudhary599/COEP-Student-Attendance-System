@@ -1,0 +1,142 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://www.coep.org.in/sites/default/files/slideshow%20images/coepfinal1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+        /* Adjust the opacity as needed, values range from 0 to 1 */
+        z-index: -1;
+        /* Place the overlay behind the content */
+    }
+
+    body {
+        background-color: #343a40;
+        /* Dark background color */
+        color: #ffffff;
+        /* Light text color */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .card {
+        background-color: #343a40;
+        /* Dark grey background color */
+        border: none;
+        border-radius: 15px;
+        /* Optional: Add rounded corners to the card */
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        /* Optional: Add a subtle box shadow */
+        transition: transform 0.3s, box-shadow 0.3s;
+        width: 600px;
+        /* Set the desired width of the card */
+        text-align: center;
+        padding: 1em;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+        /* Enlarge the card on hover */
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        /* Increase box shadow on hover */
+    }
+
+    .card-title {
+        color: #ffffff;
+        /* Light title text color */
+        font-family: 'Arial', sans-serif;
+        /* Optional: Use a different font family */
+        font-size: 2.5rem;
+        font-weight: bold;
+        transition: color 0.3s;
+        /* Smooth color transition on hover */
+    }
+
+    .card:hover .card-title {
+        color: #f8f9fa;
+        /* Lighter text color on hover */
+    }
+
+    .card-text {
+        color: #c0c0c0;
+        /* Light grey text color */
+        transition: color 0.3s;
+        /* Smooth color transition on hover */
+    }
+
+    .card:hover .card-text {
+        color: #ffffff;
+        /* Light text color on hover */
+    }
+
+    .form-group label {
+        color: #ffffff;
+        /* Light text color for form labels */
+    }
+
+    .form-control {
+        background-color: #212529;
+        /* Dark background color for form inputs */
+        color: #c0c0c0;
+        /* Light text color for form inputs */
+        border: 1px solid #ced4da;
+        /* Optional: Add border to form inputs */
+    }
+
+    .form-control:focus {
+        border-color: #ffffff;
+        /* Change border color on focus */
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        /* Green button color */
+        border: none;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        /* Darker green on hover */
+    }
+</style>
+
+<div class="card text-center">
+    <h1 class="card-title mb-4">COEP Technological University</h1>
+    <div class="card-body">
+        <p class="card-text">For students, the username is your MIS number, and your password is the same as your Moodle
+            password.</p>
+        <p class="card-text">For faculty, the username is your Coep Mail ID, and your password is the same as your
+            Moodle password.</p>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block mt-4">Login</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

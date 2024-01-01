@@ -1,0 +1,52 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<a href="{% url 'master_admin_home_page_view' %}" class="btn btn-primary mt-2">Back to Home</a>
+
+<h2 class="text-center my-4">All Faculty Records</h2>
+
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <form class="d-flex" role="search" action="" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search_area"
+                name="search_area">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<table class="table table-dark table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Sr No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email ID</th>
+            <th scope="col">Department</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+
+    {% for record in all_records %}
+
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ record.name }}</td>
+        <td>{{ record.email }}</td>
+        <td>{{ record.department }}</td>
+        <td>
+            <a href="{% url 'update_faculty_record_view' record.pk %}" class="btn btn-warning btn-sm">Edit</a>
+            <form action="{% url 'delete_faculty_record_view' record.pk %}" method="POST" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm ml-2">Delete</button>
+            </form>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock content %}

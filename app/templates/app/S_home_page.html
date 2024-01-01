@@ -1,0 +1,204 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://www.coep.org.in/sites/default/files/slideshow%20images/coepfinal1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+        /* Adjust the opacity as needed, values range from 0 to 1 */
+        z-index: -1;
+        /* Place the overlay behind the content */
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 20px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .left-card,
+    .right-card {
+        background-color: #495057;
+        border: none;
+        color: #ffffff;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.5s, box-shadow 0.5s;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    .left-card:hover,
+    .right-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .left-card {
+        width: 25%;
+        padding: 20px;
+        height: 80%;
+    }
+
+    .right-card {
+        width: 70%;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th,
+    td {
+        color: #ffffff;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #212529;
+    }
+
+    td {
+        background-color: #495057;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-warning:hover {
+        background-color: #212529;
+        color: #ffc107;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<a href="{% url 'password_change_view' %}" class="btn btn-secondary mt-2">Change Password</a>
+
+<br><br>
+
+<div class="container">
+    <!-- Left card for Personal Info -->
+    <div class="left-card">
+        <h2>Personal Info</h2>
+        <ul>
+            <li>
+                <p>
+                    <strong>Name:</strong> {{ personal_info.name }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Email Id:</strong> {{ personal_info.email }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>MIS Number:</strong> {{ personal_info.mis }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Phone Number:</strong> {{ personal_info.phone_number }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Branch:</strong> {{ personal_info.branch }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Year:</strong> {{ personal_info.year }}
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Division:</strong> {{ personal_info.div }}
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Right card for Course-Faculty Records -->
+    <div class="right-card">
+        <h2>All your Course-Faculty Records</h2>
+        <table class="table table-dark table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Sr No.</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Faculty Name</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+
+            {% for record in all_records %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ record.course.name }}</td>
+                <td>{{ record.faculty.name }}</td>
+                <td>{{ record.faculty.department }}</td>
+                <td>
+                    <a href="{% url 'student_course_faculty_attendance_detailed_view' record.pk %}"
+                        class="btn btn-warning btn-sm d-inline">See</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock content %}

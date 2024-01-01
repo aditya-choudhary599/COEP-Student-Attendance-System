@@ -1,0 +1,181 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://www.coep.org.in/sites/default/files/slideshow%20images/coepfinal1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+        z-index: -1;
+    }
+
+    body {
+        background-color: #343a40;
+        color: #ffffff;
+        margin: 0;
+        padding: 20px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .university-section,
+    .admin-section {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .university-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        transition: color 0.5s;
+    }
+
+    .university-title:hover {
+        color: #ffcc00;
+        /* Change the color on hover */
+    }
+
+    .admin-welcome {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        transition: font-size 0.3s;
+    }
+
+    .admin-welcome:hover {
+        font-size: 1.8rem;
+        /* Change the font size on hover */
+    }
+
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background-color: #2c2c2c;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #3b5998, #00aced);
+        opacity: 0.6;
+        z-index: -1;
+        transition: opacity 0.5s;
+    }
+
+    .card:hover::before {
+        opacity: 0.8;
+        /* Change the opacity on hover */
+    }
+
+    .card-title {
+        color: #ffffff;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 20px 0;
+        transition: color 0.3s;
+    }
+
+    .card:hover .card-title {
+        color: #ffcc00;
+        /* Change the color on hover */
+    }
+
+    .list-group-item {
+        background-color: transparent;
+        color: #ffffff;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .list-group-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+</style>
+
+<a href="{% url 'password_change_view' %}" class="btn btn-secondary mt-2">Change Password</a>
+
+<div class="university-section">
+    <h1 class="university-title">COEP Technological University</h1>
+</div>
+
+<div class="admin-section">
+    <h3 class="admin-welcome">Welcome back, Admin</h3>
+</div>
+
+<div class="card-container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Manage Student Records</h5>
+            <a href="{% url 'add_student_record_view' %}" class="list-group-item list-group-item-action">Add
+                Student Record</a>
+            <a href="{% url 'all_student_records_view' %}" class="list-group-item list-group-item-action">See all
+                Student Records</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Manage Faculty Records</h5>
+            <a href="{% url 'add_faculty_record_view' %}" class="list-group-item list-group-item-action">Add Faculty
+                Record</a>
+            <a href="{% url 'all_faculty_records_view' %}" class="list-group-item list-group-item-action">See all
+                Faculty Records</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Manage Course Records</h5>
+            <a href="{% url 'add_course_record_view' %}" class="list-group-item list-group-item-action">Add Course
+                Record</a>
+            <a href="{% url 'all_course_records_view' %}" class="list-group-item list-group-item-action">See all
+                Course Records</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Manage Course-Faculty Records</h5>
+            <a href="{% url 'add_course_faculty_record_view' %}" class="list-group-item list-group-item-action">Add
+                Course-Faculty Record</a>
+            <a href="{% url 'all_course_faculty_records_view' %}" class="list-group-item list-group-item-action">See all
+                Course-Faculty Records</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Attendance Records</h5>
+            <a href="{% url 'all_attendance_records_view' %}" class="list-group-item list-group-item-action">See all
+                Attendance Records</a>
+            <a href="{% url 'sem_end_students_attendance_report_view' %}"
+                class="list-group-item list-group-item-action">Get Sem End Student Attendance Report</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

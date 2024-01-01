@@ -1,0 +1,112 @@
+{% extends 'app/base_template.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .white-label {
+    color: white;
+  }
+
+  .card-title {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .csv-instructions {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .choices-list {
+    list-style-type:circle;
+    padding: 0;
+  }
+
+  .choices-sublist {
+    margin-left: 30px;
+    /* Increased left margin for better readability */
+  }
+</style>
+
+<a href="{% url 'master_admin_home_page_view' %}" class="btn btn-primary mt-2">Back to Home</a>
+
+{% if messages %}
+<div class="alert alert-info mt-3">
+  <ul class="mb-0">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<h2 class="text-center my-4 white-label">Add New Records</h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mb-4" style="background-color: #495057;">
+      <div class="card-body">
+        <h5 class="card-title white-label">Add One Record</h5>
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form_1.as_p }}
+          <button type="submit" class="btn btn-success">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card mb-4" style="background-color: #495057;">
+      <div class="card-body">
+        <h5 class="card-title white-label">Add Records via CSV File</h5>
+        <div class="csv-instructions white-label">
+          <p>To add records via CSV file, ensure your CSV file follows this format:</p>
+          <ul>
+            <li>'Student Name '</li>
+            <li>'Coep MailId'</li>
+            <li>'MIS No'</li>
+            <li>'Mob No'</li>
+            <li>'Branch' - Choose from:
+              <ol class="choices-list">
+                {% for branch in form_1.branch.field.choices %}
+                <li class="choices-sublist">{{ branch.1 }}</li>
+                {% endfor %}
+              </ol>
+            </li>
+            <li>'Year' - Choose from:
+              <ol class="choices-list">
+                {% for year in form_1.year.field.choices %}
+                <li class="choices-sublist">{{ year.1 }}</li>
+                {% endfor %}
+              </ol>
+            </li>
+            <li>'Div' - Choose from:
+              <ol class="choices-list">
+                {% for div in form_1.div.field.choices %}
+                <li class="choices-sublist">{{ div.1 }}</li>
+                {% endfor %}
+              </ol>
+            </li>
+          </ul>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form_2.as_p }}
+          <button type="submit" class="btn btn-success">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Add the 'white-label' class to all labels in the forms
+  document.querySelectorAll('form label').forEach(label => {
+    label.classList.add('white-label');
+  });
+</script>
+
+{% endblock content %}
