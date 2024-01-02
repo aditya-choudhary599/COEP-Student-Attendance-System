@@ -22,7 +22,12 @@ The COEP Student Attendance System aims to achieve the following objectives:
    - **Password Encryption:** User passwords are securely encrypted before storage in the database using industry-standard cryptographic algorithms.
    - **Session Management:** Ensures secure session management to prevent unauthorized access.
 
-By addressing these goals, the COEP Student Attendance System is expected to contribute to a more efficient and transparent attendance management process at the College of Engineering, Pune.
+5. **Additional Master Admin Functionalities:**
+   - **Add Faculty and Student Records via CSV:** Master Admin can add multiple faculty and student records by uploading CSV files.
+   - **Update Student Year:** After each semester, Master Admin can update student information, reflecting the change in academic years.
+   - **Delete Attendance Records After Semester End:** Master Admin has the option to delete all attendance records at the end of each semester.
+
+By addressing these goals and incorporating additional features, the COEP Student Attendance System is expected to contribute to a more efficient and transparent attendance management process at the College of Engineering, Pune.
 
 ## Features
 
@@ -58,6 +63,10 @@ By addressing these goals, the COEP Student Attendance System is expected to con
   - Manage course-faculty assignments.
 - **Attendance Management:**
   - View, delete, and generate reports for attendance records.
+  - Additional functionalities:
+    - Add Faculty and Student Records via CSV.
+    - Update Student Year.
+    - Delete Attendance Records After Semester End.
 
 ### Faculty
 
